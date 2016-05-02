@@ -1,0 +1,61 @@
+The README is used to answer questions posed by the professor. 
+The Questions and programming assignment can be found in the PDF.
+
+Threadmentor is used to manage concurrent threads. 
+    https://www.cs.mtu.edu/~shene/NSF-3/e-Book/index.html
+    http://www.csl.mtu.edu/cs4411.ck/www/FAQ.html
+
+It has been setup and tested on Ubuntu 14.04 x64
+    make
+    ./prog3 < testFile
+		You may change the numbers of testFile
+		Read the pdf for formatting instructions
+
+    Warnings will be Generated, Do not mind them
+
+// ----------------------------------------------------------- 
+// NAME : Kyler Witting                      User ID: kmwittin 
+// PROGRAM ASSIGNMENT 3
+// FILE NAME : README
+// PROGRAM PURPOSE :
+//      The Makefile that answers the questions from the assignment
+// -----------------------------------------------------------
+
+1. Question: Are there any race conditions in this prefix sum computation? Why?
+
+2. Question: Prove rigorously that this algorithm does compute the prefix sum 
+correctly.
+
+3. Question: Can the result of x[i]+x[i-2^(h-1) ]  of run h  be saved back to 
+x[i] ? Explain your findings as clearly as possible.
+
+4. Question: The main()  creates n  threads in each iteration and wait for them
+to complete. This is a significant amount of time in creating and joining
+threads. If you are allowed to use extra variables/arrays and busy waiting, can
+you just create n  threads and let them do all the work without the use of a
+temporary array B[*,*] ? Suggest a solution and discuss its correctness.
+
+
+1) No, there is no race conditions in this prefix sum computation. My program
+waits for all the threads of a single run to complete before moving on to the
+next one. Because of this the program only works on one part of the prefix sum
+at a time. The sum, while calculating a step at a time, works on sepearte parts
+of the 2D array. 
+
+2) When this algorithm is given a value of 1, then that value is the final
+prefix sum computation. Once it reaches 2, k=1 so there will be one run. The
+first element will be copied, and the second will have the first added to it
+using the algorithm. This patterns continues on as long as the array is a 2^k
+format and the integers are valid. This was my proof by induction. 
+
+3) Yes it will be able to as long as you don't have to worry about going out of
+bounds of the array. Also it would have to do the entire round at one time. If
+there are overlapping runs then there will be race conditions. 
+
+4) If you were able to use busy waiting, you could create n threads. Each thread
+would finish its section and then move to the next run, while still waiting for
+the other parts of the run that it needs to complete. This would mean minimum
+downtime between threads, minimum threads to create and join, and the quickest
+runtime. 
+
+
